@@ -1,0 +1,75 @@
+<div>
+  <h2>Create New Customer</h2>
+
+  <fieldset>
+    <legend>Customer Information</legend>
+    <div>
+      <label for="customer-name">Name:</label>
+      <input type="text" id="customer-name" [(ngModel)]="createData.Name" />
+    </div>
+
+    <div>
+      <label for="customer-phone">Phone:</label>
+      <input type="text" id="customer-phone" [(ngModel)]="createData.Phone" />
+    </div>
+
+    <div>
+      <label for="customer-email">Email:</label>
+      <input type="text" id="customer-email" [(ngModel)]="createData.Email" />
+    </div>
+
+    <div>
+      <label for="customer-address">Address:</label>
+      <input type="text" id="customer-address" [(ngModel)]="createData.Address" />
+    </div>
+  </fieldset>
+
+  <br />
+
+  <fieldset>
+    <legend>Add Vehicle</legend>
+
+    <div>
+      <label>Make:</label>
+      <input type="text" id="vehicle-make" [(ngModel)]="currentVehicle.Make" />
+    </div>
+
+    <div>
+      <label>Model:</label>
+      <input type="text" id="vehicle-model" [(ngModel)]="currentVehicle.Model" />
+    </div>
+
+    <div>
+      <label>VIN:</label>
+      <input type="text" id="vehicle-vin" [(ngModel)]="currentVehicle.VIN" />
+    </div>
+
+    <br />
+    <button type="button" (click)="addVehicleToList()">Add Vehicle To List</button>
+  </fieldset>
+
+  <br />
+
+  <div>
+    <h3>Added Cars Preview ({{ createData.Vehicles.length }})</h3>
+    <ul>
+      @for (vehicle of createData.Vehicles; track $index) {
+        <li>
+          <strong>Make:</strong>{{ vehicle.Make }} <strong>Model:</strong>{{ vehicle.Model }}
+          <strong>VIN:</strong>{{ vehicle.VIN }}
+
+          <button type="button" (click)="removeVehicleFromList($index)">Remove</button>
+        </li>
+      } @empty {
+        <li>No vehicles added yet for this customer.</li>
+      }
+    </ul>
+  </div>
+
+  <hr />
+  <br />
+
+  <div>
+    <button type="button" (click)="OnCreate()">Save All</button>
+  </div>
+</div>
