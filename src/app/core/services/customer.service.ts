@@ -1,27 +1,35 @@
-import { HttpClient } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { BaseService } from './base.service';
+import {
+  CreateCustomerRequest,
+  CustomerResponse,
+  UpdateCustomerRequest,
+} from '../../features/customers/models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class CustomerService{
-  private http = inject(HttpClient);
-  private baseUrl = 'https://localhost:5050/api/customers';
+export class CustomerService extends BaseService {
+  private baseUrl = `${this.apiUrl}/customers`;
 
-  Create(createData: any) : Observable<any>{
-    return this.http.post<any>(this.baseUrl, createData);
+  Create(createData: CreateCustomerRequest): Observable<CustomerResponse> {
+    return this.http.post<CustomerResponse>(this.baseUrl, createData);
   }
 
-  Update(id: any, updateData: any) : Observable<any>{
+  Update(id: any, updateData: UpdateCustomerRequest): Observable<any> {
     return this.http.put<any>(`${this.baseUrl}/${id}`, updateData);
   }
 
-  GetAll() : Observable<any[]>{
-    return this.http.get<any[]>(`${this.baseUrl}/all`);
+  GetAll(): Observable<CustomerResponse[]> {
+    return this.http.get<CustomerResponse[]>(`${this.baseUrl}/all`);
   }
 
-  Get(id: any) : Observable<any>{
-    return this.http.get<any>(`${this.baseUrl}/${id}`);
+  Get(id: any): Observable<CustomerResponse> {
+    return this.http.get<CustomerResponse>(`${this.baseUrl}/${id}`);
+  }
+
+  Delete(id: any): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/${id}`);
   }
 }
